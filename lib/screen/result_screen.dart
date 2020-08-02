@@ -40,7 +40,7 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 }
 
-makeIconResult(String result) {
+Widget makeIconResult(String result) {
   switch (result) {
     case '고도비만':
       {
