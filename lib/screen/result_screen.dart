@@ -46,7 +46,7 @@ Widget makeIconResult(String result) {
       {
         return Icon(
           Icons.sentiment_very_dissatisfied,
-          color: Colors.red,
+          color: Colors.pink,
           size: 120,
         );
       }
@@ -91,7 +91,7 @@ String makeTextResult(int height, int weight) {
   final textResult = {'고도비만', '비만', '과체중', '정상', '저체중'};
   double heightForCal = height / 100;
   double result = weight / (heightForCal * heightForCal);
-  print(result);
+
   if (result > 30) {
     return textResult.elementAt(0);
   } else if (result <= 30 && result > 25) {
