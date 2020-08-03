@@ -1,6 +1,6 @@
+import 'package:bmi_calculator/form_validation_widget.dart';
 import 'package:bmi_calculator/screen/result_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class InputScreen extends StatefulWidget {
   final String title;
@@ -15,54 +15,26 @@ class _InputScreenState extends State<InputScreen> {
   final weightController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
+  final _formKey2 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
-          Form(
-            key: _formKey,
-            child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return '키를 입력해주세요';
-                }
-                return null;
-              },
-              controller: heightController,
-              decoration:
-                  InputDecoration(hintText: '키', border: OutlineInputBorder()),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
-            ),
-          ),
+          FormValidationWidget(
+              formKey: _formKey,
+              heightController: heightController,
+              warningMsg: '키를 입력해주세요',
+              hintMag: '키'),
           SizedBox(
             height: 8.0,
           ),
-          Form(
-            key: _formKey,
-            child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return '몸무게를 입력해주세요';
-                }
-                return null;
-              },
-              controller: weightController,
-              decoration: InputDecoration(
-                hintText: '몸무게',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
-            ),
-          ),
+          FormValidationWidget(
+              formKey: _formKey2,
+              heightController: weightController,
+              warningMsg: '몸무게를 입력해주세요',
+              hintMag: '몸무게'),
           SizedBox(
             height: 8.0,
           ),
@@ -74,7 +46,7 @@ class _InputScreenState extends State<InputScreen> {
                   int height;
                   int weight;
 
-                  if (_formKey.currentState.validate()) {
+                  if (_formKey.currentState.validate() && _formKey2.currentState.validate()) {
                     height = int.parse(heightController.text);
                     weight = int.parse(weightController.text);
 
