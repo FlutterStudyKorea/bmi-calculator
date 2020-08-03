@@ -14,6 +14,8 @@ class _InputScreenState extends State<InputScreen> {
   final heightController = TextEditingController();
   final weightController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +23,14 @@ class _InputScreenState extends State<InputScreen> {
       child: Column(
         children: <Widget>[
           Form(
-            child: TextField(
+            key: _formKey,
+            child: TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return '키를 입력해주세요';
+                }
+                return null;
+              },
               controller: heightController,
               decoration:
                   InputDecoration(hintText: '키', border: OutlineInputBorder()),
@@ -35,7 +44,14 @@ class _InputScreenState extends State<InputScreen> {
             height: 8.0,
           ),
           Form(
-            child: TextField(
+            key: _formKey,
+            child: TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return '몸무게를 입력해주세요';
+                }
+                return null;
+              },
               controller: weightController,
               decoration: InputDecoration(
                 hintText: '몸무게',
@@ -55,19 +71,24 @@ class _InputScreenState extends State<InputScreen> {
             child: RaisedButton(
                 child: Text('결과'),
                 onPressed: () {
-                  int height = int.parse(heightController.text);
-                  int weight = int.parse(weightController.text);
+                  int height;
+                  int weight;
 
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ResultScreen(
-                                title: widget.title,
-                                height: height,
-                                weight: weight,
-                              )));
+                  if (_formKey.currentState.validate()) {
+                    height = int.parse(heightController.text);
+                    weight = int.parse(weightController.text);
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResultScreen(
+                                  title: widget.title,
+                                  height: height,
+                                  weight: weight,
+                                )));
+                  }
                 }),
-          )
+          ),
         ],
       ),
     );
