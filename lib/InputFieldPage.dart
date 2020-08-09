@@ -31,7 +31,7 @@ class _InputFieldPageState extends State<InputFieldPage> {
               SizedBox(
                 height: 16.0,
               ),
-               MyTextFiled(weightController,'몸무게','몸무게 정보를 입력주십시요',true)
+               MyTextFiled(weightController,'몸무게','몸무게 정보를 입력주십시요',false)
               ,
               SizedBox(
                 height: 32.0,

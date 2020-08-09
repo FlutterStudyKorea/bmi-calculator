@@ -23,9 +23,11 @@ class _MyTextFiledState extends State<MyTextFiled> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textCtrl,
+      autofocus: isAutoFocus,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         hintText: hint,
+
       )
 
       ,
